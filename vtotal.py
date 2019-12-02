@@ -5,7 +5,7 @@ import pandas as pd
 
 class VtScan(object):
 
-    def __init__(self, key):
+    def __init__(self, key=''):
         try:
             self.__db = sqlite3.connect("pyscan")
         except sqlite3.OperationalError as oe:
@@ -47,12 +47,12 @@ class VtScan(object):
         response = requests.post(self.scan_url_url, data=params)
         self.__save_response(response.json(), method="urlscan")
 
-    def get_domain_report(self, domain):
+    def domain_report(self, domain):
         params = {'apikey': self.__api_key, 'domain': domain}
         response = requests.get(self.scan_domain_url, params=params)
         self.__save_response(response.json(), method="domainreport")
 
-    def get_ip_report(self, ip_address):
+    def ip_report(self, ip_address):
         params = {'apikey': self.__api_key, 'ip': ip_address}
         response = requests.get(self.scan_ip_url, params=params)
         self.__save_response(response.json(), method="ipreport")
